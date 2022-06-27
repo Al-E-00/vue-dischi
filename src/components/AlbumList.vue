@@ -3,11 +3,11 @@
         <div class="bg-dark">
             <div class="container custom-container">
                 <div class="row row-cols-5 custom-album-view">
-                    <div class="col" v-show="currentGenre" v-for="album in albumsList" :key="album.title" @search="changeGenre">
+                    <div class="col" v-for="album in newAlbumsList" :key="album.title">
                         <MainAlbum :info="album"></MainAlbum>
                     </div>
                 </div>
-            </div>
+            </div>  
         </div>
     </div>
 </template>
@@ -24,8 +24,9 @@ export default {
         return {
             apiURL: 'https://flynn.boolean.careers/exercises/api/array/music',
             albumsList: [],
+            newAlbumsList: [],
             loading: true,
-            currentGenre: 'Select',
+            currentGenre: 'Jazz',
         };
     },
     methods: {
@@ -34,6 +35,7 @@ export default {
                 .get(this.apiURL)
                 .then((resp) => {
                     this.albumsList = resp.data.response;
+                    this.newAlbumsList = this.albumsList.filter(album => album.genre === this.currentGenre);
                 });
         },
         changeGenre(newGenre) {
