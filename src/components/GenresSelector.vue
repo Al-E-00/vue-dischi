@@ -3,7 +3,7 @@
         <select v-model="genreSelected" class="form-select" aria-label="Default select example">
             <option selected>Select genres</option>
             <option v-for="(genre, i) in selectorInfo" :key="i" :value="genre"
-                @click="selectedGenre(genre)"> {{ genre }} </option>
+                @change="selectedGenre(genre)"> {{ genre }} </option>
         </select>
     </div>
 </template>
