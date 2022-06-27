@@ -1,9 +1,8 @@
 <template>
     <div>
-        <select v-model="genreSelected" class="form-select" aria-label="Default select example">
+        <select @change="selectedGenre(genre)" v-model="genreSelected" class="form-select" aria-label="Default select example">
             <option selected>Select genres</option>
-            <option v-for="(genre, i) in selectorInfo" :key="i" :value="genre"
-                @change="selectedGenre(genre)"> {{ genre }} </option>
+            <option v-for="(genre, i) in selectorInfo" :key="i" :value="genre"> {{ genre }} </option>
         </select>
     </div>
 </template>
@@ -20,10 +19,11 @@ export default {
     },
     methods: {
         selectedGenre(selected) {
-            console.log(selected);
+            this.genreSelected = selected;
+            console.log(this.genreSelected);
+        },
         }
-    }
-}
+        }
 </script>
 
 <style>
