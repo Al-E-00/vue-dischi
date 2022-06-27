@@ -11,7 +11,6 @@
 export default {
     data() {
         return {
-            selected: '',
             genreSelected: '',
         };
     },
@@ -20,7 +19,8 @@ export default {
     },
     methods: {
         selectedGenre(genreSelected) {
-            console.log(genreSelected)
+            this.genreSelected = genreSelected;
+            console.log(this.genreSelected);
         }
         }
 }
