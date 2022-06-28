@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <Header />
-    <Albums />
+    <Header :genres-list ="genresList"/>
+    <Albums @genresUpdated="onGenresUpdate"/>
   </div>
 </template>
 
@@ -10,7 +10,20 @@ import Header from './components/TheHeader.vue';
 import Albums from './components/AlbumList.vue';
 
 export default {
-    components: { Header, Albums }
+    components: { Header, Albums },
+    props: {
+        changeGenre: String
+    },
+    data() {
+      return{
+        genresList: []
+      };
+    },
+    methods: {
+      onGenresUpdate(genresList) {
+        this.genresList = genresList
+      }
+    }
 }
 </script>
 

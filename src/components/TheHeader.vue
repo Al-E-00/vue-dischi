@@ -7,7 +7,7 @@
                         width="40" height="40">
                 </div>
             </a>
-            <GenresSelector :selector-info="selectorInfo" :currentGenres="currentGenres" @changeGenre="onChangePage"/>
+            <GenresSelector :genres-list="genresList"/>
         </nav>
     </div>
 </template>
@@ -19,6 +19,9 @@ import GenresSelector from './GenresSelector.vue';
 export default {
     name: "theHeader",
     components: { GenresSelector },
+    props: {
+        genresList: Array
+    },
     data() {
         return {
             selectorInfo: [],

@@ -1,8 +1,7 @@
 <template>
     <div>
         <select @change="selectedGenre(genreSelected)" v-model="genreSelected" class="form-select" aria-label="Default select example">
-            <option selected>Select genres</option>
-            <option v-for="(genre, i) in selectorInfo" :key="i" :value="genre"> {{ genre }} </option>
+            <option v-for="(genre, i) in genresList" :key="i" :value="genre"> {{ genre }} </option>
         </select>
     </div>
 </template>
@@ -15,10 +14,11 @@ export default {
         };
     },
     props: {
-        selectorInfo: Array
+        genresList: Array
     },
     methods: {
         selectedGenre(genreSelected) {
+            this.$emit('changeGenre', genreSelected);
             this.genreSelected = genreSelected;
             console.log(this.genreSelected);
         }

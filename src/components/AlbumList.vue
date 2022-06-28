@@ -3,7 +3,7 @@
         <div class="bg-dark">
             <div class="container custom-container">
                 <div class="row row-cols-5 custom-album-view">
-                    <div class="col" v-for="album in newAlbumsList" :key="album.title">
+                    <div class="col" v-for="album in albumsList" :key="album.title">
                         <MainAlbum :info="album"></MainAlbum>
                     </div>
                 </div>
@@ -20,13 +20,15 @@ import MainAlbum from './MainAlbum.vue';
 export default {
     name: 'AlbumsList',
     components: { MainAlbum },
+    props: {
+        changeGenre: String
+    },
     data() {
         return {
             apiURL: 'https://flynn.boolean.careers/exercises/api/array/music',
             albumsList: [],
             newAlbumsList: [],
             loading: true,
-            currentGenre: 'Jazz',
         };
     },
     methods: {
@@ -35,11 +37,23 @@ export default {
                 .get(this.apiURL)
                 .then((resp) => {
                     this.albumsList = resp.data.response;
-                    this.newAlbumsList = this.albumsList.filter(album => album.genre === this.currentGenre);
-                });
+
+                    this.$emit("genresUpdated", this.genresList())
+                })
+                .catch(() => {
+                    alert("Due to a problem, the operation has fallen through")
+                })
         },
-        changeGenre(newGenre) {
-            this.currentGenre = newGenre;
+        genresList() {
+            const list = [];
+
+            this.albumsList.forEach( album => {
+                if(!list.includes(album.genre)) {
+                    list.push(album.genre)
+                }
+            })
+
+            return list;
         }
     },
 
