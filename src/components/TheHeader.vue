@@ -7,7 +7,7 @@
                         width="40" height="40">
                 </div>
             </a>
-            <GenresSelector :genres-list="genresList"/>
+            <GenresSelector :genres-list="genresList" @searchGenre="$emit('searchGenre', $event)"/>
         </nav>
     </div>
 </template>

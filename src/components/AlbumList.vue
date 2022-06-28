@@ -1,9 +1,12 @@
 <template>
     <div>
         <div class="bg-dark">
+            <div class="alert alert-info">
+                Current Genre: {{searchGenre}}
+            </div>
             <div class="container custom-container">
                 <div class="row row-cols-5 custom-album-view">
-                    <div class="col" v-for="album in albumsList" :key="album.title">
+                    <div class="col" v-for="album in filteredAlbums" :key="album.title">
                         <MainAlbum :info="album"></MainAlbum>
                     </div>
                 </div>
@@ -18,18 +21,27 @@ import MainAlbum from './MainAlbum.vue';
 
 
 export default {
+    props: {
+        searchGenre: String
+    },
     name: 'AlbumsList',
     components: { MainAlbum },
-    props: {
-        changeGenre: String
-    },
     data() {
         return {
             apiURL: 'https://flynn.boolean.careers/exercises/api/array/music',
             albumsList: [],
-            newAlbumsList: [],
             loading: true,
         };
+    },
+    computed: {
+        filteredAlbums() {
+            if(!this.searchGenre){
+                return this.albumsList;
+            }
+            return this.albumsList.filter((album) =>{
+                return album.genre == this.searchGenre
+            })
+        }
     },
     methods: {
         fetchAlbumsList() {

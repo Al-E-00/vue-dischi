@@ -8,17 +8,17 @@
 
 <script>
 export default {
+    props: {
+        genresList: Array
+    },
     data() {
         return {
             genreSelected: '',
         };
     },
-    props: {
-        genresList: Array
-    },
     methods: {
         selectedGenre(genreSelected) {
-            this.$emit('changeGenre', genreSelected);
+            this.$emit('searchGenre', this.genreSelected);
             this.genreSelected = genreSelected;
             console.log(this.genreSelected);
         }

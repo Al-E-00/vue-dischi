@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <Header :genres-list ="genresList"/>
-    <Albums @genresUpdated="onGenresUpdate"/>
+    <Header :genres-list ="genresList" @searchGenre="onSearchGenre"/>
+    <Albums @genresUpdated="onGenresUpdate" :search-genre="searchGenre"/>
   </div>
 </template>
 
@@ -11,17 +11,18 @@ import Albums from './components/AlbumList.vue';
 
 export default {
     components: { Header, Albums },
-    props: {
-        changeGenre: String
-    },
     data() {
       return{
-        genresList: []
+        genresList: [],
+        searchGenre: ""
       };
     },
     methods: {
       onGenresUpdate(genresList) {
         this.genresList = genresList
+      },
+      onSearchGenre(genre) {
+        this.searchGenre = genre
       }
     }
 }
